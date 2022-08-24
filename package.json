@@ -1,5 +1,5 @@
 {
-  "name": "alphainc",
+  "name": "alphacounter",
   "version": "1.0.0",
   "description": "An alphanumeric incrementable counter with endless scale and suitable for URLs. Miniscule library.",
   "main": "index.js",

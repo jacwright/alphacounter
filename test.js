@@ -1,7 +1,7 @@
 import { expect } from 'chai'
-import { inc, is } from './index.js'
+import { inc } from './index.js'
 
-describe('autoinc inc', () => {
+describe('alphacounter inc', () => {
   it('starts at 0', () => {
     expect(inc()).to.equal('0')
     expect(inc(undefined)).to.equal('0')
@@ -39,21 +39,21 @@ describe('autoinc inc', () => {
   })
 })
 
-describe('autoinc is', () => {
+describe('alphacounter inc.is', () => {
   it('compares 2 strings', () => {
-    expect(is('a').lt('b')).to.equal(true)
-    expect(is('a').gt('b')).to.equal(false)
-    expect(is('a').eq('b')).to.equal(false)
+    expect(inc.is('a').lt('b')).to.equal(true)
+    expect(inc.is('a').gt('b')).to.equal(false)
+    expect(inc.is('a').eq('b')).to.equal(false)
   })
 
   it('handles empty values', () => {
-    expect(is().lt('b')).to.equal(true)
-    expect(is('b').lt(null)).to.equal(false)
-    expect(is('').eq(null)).to.equal(true)
+    expect(inc.is().lt('b')).to.equal(true)
+    expect(inc.is('b').lt(null)).to.equal(false)
+    expect(inc.is('').eq(null)).to.equal(true)
   })
 
   it('compares different sizes correctly', () => {
-    expect(is('0000').lt('b')).to.equal(false)
-    expect(is('A').lt('0A')).to.equal(true)
+    expect(inc.is('0000').lt('b')).to.equal(false)
+    expect(inc.is('A').lt('0A')).to.equal(true)
   })
 })

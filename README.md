@@ -1,4 +1,4 @@
-# alphainc
+# alphacounter
  An alphanumeric incrementable counter with endless scale and suitable for URLs. 20 lines of code, no dependencies.
 
 ## Why?
@@ -14,10 +14,16 @@ might.
 This may be valuable for auto-incrementing database string ids that could be used in URLs. And it could be useful for
 extremely large numbers.
 
+## Why another?
+
+There are a few alphanumeric incrementing libraries available, but they are implemented poorly, don't produce
+sortable strings, and are larger than they need to be. incstr, alphaplusplus, & alpha-inc all use the wrong alphabet
+order so you can't check if one counter is larger than another.
+
 ## Usage
 
 ```js
-import { inc, is } from 'alphainc';
+import { inc } from 'alphacounter';
 
 let counter = inc(); // 0
 counter = inc(counter); // 1
@@ -27,6 +33,6 @@ for (let i = 0; i < 1000; i++) {
 }
 
 // Compare two counters
-console.log(is(counter).gt('A')); // true
-console.log(is(counter).gt('00A')); // false
+console.log(inc.is(counter).gt('A')); // true
+console.log(inc.is(counter).gt('00A')); // false
 ```

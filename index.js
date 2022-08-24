@@ -15,7 +15,7 @@ export function inc(str, pad) {
   return str;
 }
 
-export function is(a) {
+inc.is = (a) => {
   return {
     lt: (b) => len(a) !== len(b) ? len(a) < len(b) : a < b,
     gt: (b) => len(a) !== len(b) ? len(a) > len(b) : a > b,
