@@ -1,5 +1,5 @@
 # alphacounter
- An alphanumeric incrementable counter with endless scale and suitable for URLs. 20 lines of code, no dependencies.
+ An alphanumeric incrementable counter with endless scale and suitable for URLs. ~20 lines of code, no dependencies.
 
 ## Why?
 
@@ -22,6 +22,10 @@ order so you can't check if one counter is larger than another.
 
 ## Usage
 
+A single function, `inc`, handles creating and incrementing your counter from 0 to beyond `Number.MAX_SAFE_INTEGER`. A
+helper method allows comparing two counters, taking into account their string length so that 10 remains greater than 9.
+It also handles an undefined/null value as a new counter, less than any other counter.
+
 ```js
 import { inc } from 'alphacounter';
 
@@ -35,4 +39,5 @@ for (let i = 0; i < 1000; i++) {
 // Compare two counters
 console.log(inc.is(counter).gt('A')); // true
 console.log(inc.is(counter).gt('00A')); // false
+console.log(inc.is(undefined).lt('0')); // true
 ```
