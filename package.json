@@ -3,9 +3,17 @@
   "version": "1.0.0",
   "description": "An alphanumeric incrementable counter with endless scale and suitable for URLs. Miniscule library.",
   "main": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test.js"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.3.3",
+    "@types/mocha": "^9.1.1",
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0"
+  }
 }
