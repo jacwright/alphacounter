@@ -1,15 +1,22 @@
 {
   "name": "alphacounter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An alphanumeric incrementable counter with endless scale and suitable for URLs. Miniscule library.",
+  "keywords": [ "alphanumeric", "increment", "sortable", "counter", "string", "sequential", "id" ],
+  "homepage": "https://github.com/jacwright/alphacounter#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacwright/alphacounter.git"
+  },
+  "bugs": { "url": "https://github.com/jacwright/alphacounter/issues" },
+  "author": "Jacob Wright",
+  "license": "MIT",
+  "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
-  "type": "module",
   "scripts": {
     "test": "mocha test.js"
   },
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.3.3",
     "@types/mocha": "^9.1.1",
