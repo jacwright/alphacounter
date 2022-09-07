@@ -57,3 +57,59 @@ describe('alphacounter inc.is', () => {
     expect(inc.is('A').lt('0A')).to.equal(true)
   })
 })
+
+describe('alphacounter inc.from', () => {
+  it('creates a counter from a number', () => {
+    expect(inc.from(0)).to.equal('0')
+    expect(inc.from(61)).to.equal('z')
+    expect(inc.from(62)).to.equal('00')
+  })
+
+  it('creates all counters from numbers correctly', () => {
+    for (let i = 0, count; i < 10000; i++) {
+      count = inc(count)
+      expect(inc.from(i)).to.equal(count)
+    }
+  })
+
+  it('creates a counter from a number adding padding', () => {
+    expect(inc.from(0, 3)).to.equal('000')
+    expect(inc.from(61, 3)).to.equal('00z')
+    expect(inc.from(62, 3)).to.equal('010')
+  })
+
+  it('creates all counters from numbers correctly with padding', () => {
+    for (let i = 0, count; i < 10000; i++) {
+      count = inc(count, 4)
+      expect(inc.from(i, 4)).to.equal(count)
+    }
+  })
+
+  describe('alphacounter inc.to', () => {
+    it('converts a counter to a number', () => {
+      expect(inc.to('0')).to.equal(0)
+      expect(inc.to('z')).to.equal(61)
+      expect(inc.to('00')).to.equal(62)
+    })
+
+    it('converts all counters to numbers correctly', () => {
+      for (let i = 0, count; i < 10000; i++) {
+        count = inc(count)
+        expect(inc.to(count)).to.equal(i)
+      }
+    })
+
+    it('converts a counter to a number adding padding', () => {
+      expect(inc.to('000', 3)).to.equal(0)
+      expect(inc.to('00z', 3)).to.equal(61)
+      expect(inc.to('010', 3)).to.equal(62)
+    })
+
+    it('converts all counters to numbers correctly with padding', () => {
+      for (let i = 0, count; i < 10000; i++) {
+        count = inc(count, 4)
+        expect(inc.to(count, 4)).to.equal(i)
+      }
+    })
+  })
+})

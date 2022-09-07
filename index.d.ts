@@ -5,4 +5,6 @@ export declare namespace inc {
         gt: (b: string) => boolean;
         eq: (b: string) => boolean;
     };
+    var from: (n: number, pad?: number) => string;
+    var to: (str: string, pad?: number) => number;
 }
