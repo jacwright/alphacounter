@@ -6,7 +6,7 @@ const len = str => str && str.length || 0;
 exports.inc = inc;
 
 function inc(str, pad) {
-  if (!str) return '0'.repeat(pad || 1);
+  if (!str) return ''.padStart(pad || 1, '0');
   let c = [], i = str.length - 1;
   for (; i >= -1; i--) {
     const next = charsNext[str[i]];
@@ -14,8 +14,7 @@ function inc(str, pad) {
     if (next !== '0') break;
   }
   str = str.slice(0, Math.max(i, 0)) + c.reverse().join('');
-  if (pad && str.length < pad) str = '0'.repeat(pad - str.length) + str;
-  return str;
+  return str.padStart(pad || 1, '0');
 }
 
 inc.is = (a) => ({
@@ -32,8 +31,7 @@ inc.from = (n, pad) => {
     n = (n - mod) / 62 - sub;
   }
   let str = c.reverse().join('');
-  if (pad && str.length < pad) str = '0'.repeat(pad - str.length) + str;
-  return str;
+  return str.padStart(pad || 1, '0');
 }
 
 inc.to = (str, pad) => {
