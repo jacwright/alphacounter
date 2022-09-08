@@ -15,7 +15,7 @@
   "module": "index.mjs",
   "types": "index.d.ts",
   "scripts": {
-    "test": "mocha test.js"
+    "test": "mocha test.mjs"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
