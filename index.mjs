@@ -3,9 +3,7 @@ const charsNext = chars.reduce((obj, char, i, chars) => (obj[char] = chars[i + 1
 const charsIndex = chars.reduce((obj, char, i) => (obj[char] = i) && obj || obj, {});
 const len = str => str && str.length || 0;
 
-exports.inc = inc;
-
-function inc(str, pad) {
+export function inc(str, pad) {
   if (!str) return '0'.repeat(pad || 1);
   let c = [], i = str.length - 1;
   for (; i >= -1; i--) {

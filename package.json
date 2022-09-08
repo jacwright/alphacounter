@@ -11,8 +11,8 @@
   "bugs": { "url": "https://github.com/jacwright/alphacounter/issues" },
   "author": "Jacob Wright",
   "license": "MIT",
-  "type": "module",
   "main": "index.js",
+  "module": "index.mjs",
   "types": "index.d.ts",
   "scripts": {
     "test": "mocha test.js"
