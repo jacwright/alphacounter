@@ -1,6 +1,7 @@
 const chars = ('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz').split('');
 const charsNext = chars.reduce((obj, char, i, chars) => (obj[char] = chars[i + 1] || '0') && obj, { undefined: '0' });
 const charsIndex = chars.reduce((obj, char, i) => (obj[char] = i) && obj || obj, {});
+const reverseChars = chars.slice().reverse();
 const len = str => str && str.length || 0;
 
 export function inc(str, pad) {
@@ -41,3 +42,5 @@ inc.to = (str, pad) => {
   }
   return n;
 }
+
+inc.invert = (str, pad) => str.padStart(pad || 1, '0').replace(/./g, char => reverseChars[charsIndex[char]]);

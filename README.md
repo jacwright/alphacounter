@@ -100,3 +100,17 @@ inc.from(1000, 4) // 00G8
 inc.to('1') // 1
 inc.to('F8') // 938
 ```
+
+### Invert
+
+You may want to store records in your database in reverse order with the newest appearing at the top of your results. To
+accomplish this, you may use invert with padded counters.
+
+```js
+import { inc } from 'alphacounter';
+
+const id = inc('', 4) // 0000
+inc.invert(id); // zzzz
+
+saveDocument(`reverseIndex/${inc.invert('00F9')}`, { id: '00F9', ... }); // zzkq
+```

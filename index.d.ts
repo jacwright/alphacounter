@@ -7,4 +7,5 @@ export declare namespace inc {
     };
     var from: (number: number, pad?: number) => string;
     var to: (counter: string, pad?: number) => number;
+    var invert: (counter: string, pad?: number) => string;
 }

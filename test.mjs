@@ -112,4 +112,17 @@ describe('alphacounter inc.from', () => {
       }
     })
   })
+
+  describe('alphacounter inc.invert', () => {
+    it('inverts a counter', () => {
+      expect(inc.invert('0')).to.equal('z')
+      expect(inc.invert('z')).to.equal('0')
+      expect(inc.invert('00')).to.equal('zz')
+    })
+
+    it('inverts a counter adding padding', () => {
+      expect(inc.invert('0', 3)).to.equal('zzz')
+      expect(inc.invert('0z0', 3)).to.equal('z0z')
+    })
+  })
 })
