@@ -1,9 +1,10 @@
-export declare function inc(counter: string, pad?: number): string;
+export declare type Counter = string | undefined | null;
+export declare function inc(counter: Counter, pad?: number): string;
 export declare namespace inc {
-    var is: (a: string) => {
-        lt: (b: string) => boolean;
-        gt: (b: string) => boolean;
-        eq: (b: string) => boolean;
+    var is: (a: Counter) => {
+        lt: (b: Counter) => boolean;
+        gt: (b: Counter) => boolean;
+        eq: (b: Counter) => boolean;
     };
     var from: (number: number, pad?: number) => string;
     var to: (counter: string, pad?: number) => number;
