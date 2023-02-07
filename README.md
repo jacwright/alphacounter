@@ -1,21 +1,19 @@
 # alphacounter
- An alphanumeric incrementable counter with endless scale and suitable for URLs. ~45 lines of code, no dependencies.
+An alphanumeric incrementable counter with endless scale and suitable for URLs. ~50 lines of code, no dependencies.
+Can also convert from/to the numerical equivalent.
 
 ## Why?
 
-This was created to limit the number of characters in a counter and allow the counter to go beyond the range
-of JavaScript precision. You can get to 9 quadrillion before losing precision in JavaScript, and if you JSON encoding
-the values, numbers will take less (or equal) space up to 100k because a JSON string has 2 additional characters (the
-quote marks). For example, 1002 is represented as F9, which is the same character size in JSON encoded as "F9", making
-both it and 1002 4 characters long JSON encoded.
+alphacounter was created to provide sortable and URL-friendly strings for use in key-value database keys. With
+zero-padded numbers you only have 10 usable characters. With alphacounter, you get 62, leading to much smaller keys.
+See below how many keys you can get with a given padded length.
 
-This may be valuable for auto-incrementing database string ids that could be used in URLs. And it could be useful for
-extremely large numbers. Also support 0-padding for sorting in a DB index.
+This is valuable for auto-incrementing database string ids that could be used in URLs.
 
 ## Why another?
 
 There are a few alphanumeric incrementing libraries available, but they are implemented poorly, don't produce
-sortable strings, and are larger than they need to be. incstr, alphaplusplus, & alpha-inc all use the wrong alphabet
+_sortable_ strings, and are larger than they need to be. incstr, alphaplusplus, & alpha-inc all use the wrong alphabet
 order so you can't check if one counter is larger than another.
 
 ## Usage
@@ -33,19 +31,21 @@ for (let i = 0; i < 1000; i++) {
 }
 ```
 
-### With Padding
+### Comparing 2 counters without padding
 
-A helper allows comparing two counters, taking into account their string length so that 10 remains greater than 9.
-It also handles an undefined/null value as a new counter, less than any other counter.
+A helper allows comparing two counters, taking into account their string length so that 10 remains greater than 9,
+even though it would sort differently as strings. It also handles an undefined/null value as a new counter, less
+than any other counter.
 
 ```js
 import { inc } from 'alphacounter';
 
-let counter = inc('F8'); // F9
+let counter = inc('F8'); // becomes F9
 
 // Compare two counters
 console.log(inc.is(counter).gt('A')); // true
 console.log(inc.is(counter).gt('00A')); // false
+
 console.log(inc.is(undefined).lt('0')); // true
 ```
 
@@ -53,14 +53,14 @@ console.log(inc.is(undefined).lt('0')); // true
 
 A second parameter, `pad`, will zero-pad the counter for use in database indexes. Since databases can't use our gt/lt
 helper, you may need to zero-pad the string to the max you think you will need. To determine the upper limit, use
-61^n - 1 where n is the pad length. These are some ranges:
-| Padding | Max Count           |
-| ------: | :------------------ |
-|       2 | 3,720               |
-|       3 | 226,980             |
-|       4 | 13,845,840          |
-|       6 | 51,520,374,360      |
-|       8 | 191,707,312,997,280 |
+61^n - 1 where n is the pad length. These are some ranges for quick reference:
+| Padding | Max Count           |       |
+| ------: | :------------------ | :---- |
+|       2 | 3,720               |   ~4k |
+|       3 | 226,980             | ~225k |
+|       4 | 13,845,840          |  ~14M |
+|       6 | 51,520,374,360      |  ~51B |
+|       8 | 191,707,312,997,280 | ~200T |
 
 ```js
 import { inc } from 'alphacounter';
