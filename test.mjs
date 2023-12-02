@@ -19,10 +19,10 @@ describe('alphacounter inc', () => {
   })
 
   it('increments correctly', () => {
-    expect(inc('z')).to.equal('00')
+    expect(inc('z')).to.equal('10')
     expect(inc('00')).to.equal('01')
     expect(inc('0zzzz')).to.equal('10000')
-    expect(inc('zzzzz')).to.equal('000000')
+    expect(inc('zzzzz')).to.equal('100000')
     expect(inc('10000z')).to.equal('100010')
   })
 
@@ -32,6 +32,10 @@ describe('alphacounter inc', () => {
 
   it('pads number when requested', () => {
     expect(inc('P3', 5)).to.equal('000P4')
+  })
+
+  it('pads number when requested', () => {
+    expect(inc('0z', 2)).to.equal('10')
   })
 
   it('padded numbers can grow', () => {
@@ -53,8 +57,18 @@ describe('alphacounter inc.is', () => {
   })
 
   it('compares different sizes correctly', () => {
-    expect(inc.is('0000').lt('b')).to.equal(false)
-    expect(inc.is('A').lt('0A')).to.equal(true)
+    expect(inc.is('0000').lt('b')).to.equal(true)
+    expect(inc.is('A').lt('0A')).to.equal(false)
+    expect(inc.is('A').eq('0A')).to.equal(true)
+  })
+
+  it('compares correctly', () => {
+    const counter = inc('F8'); // F9
+
+    expect(inc.is(counter).gt('A')).to.equal(true);
+    expect(inc.is(counter).gt('00A')).to.equal(true);
+    expect(inc.is(counter).eq('000F9')).to.equal(true);
+    expect(inc.is(undefined).lt('0')).to.equal(true);
   })
 })
 
@@ -62,7 +76,7 @@ describe('alphacounter inc.from', () => {
   it('creates a counter from a number', () => {
     expect(inc.from(0)).to.equal('0')
     expect(inc.from(61)).to.equal('z')
-    expect(inc.from(62)).to.equal('00')
+    expect(inc.from(62)).to.equal('10')
   })
 
   it('creates all counters from numbers correctly', () => {
@@ -89,7 +103,8 @@ describe('alphacounter inc.from', () => {
     it('converts a counter to a number', () => {
       expect(inc.to('0')).to.equal(0)
       expect(inc.to('z')).to.equal(61)
-      expect(inc.to('00')).to.equal(62)
+      expect(inc.to('00')).to.equal(0)
+      expect(inc.to('10')).to.equal(62)
     })
 
     it('converts all counters to numbers correctly', () => {

@@ -1,5 +1,5 @@
 # alphacounter
-An alphanumeric incrementable counter with endless scale and suitable for URLs. ~50 lines of code, no dependencies.
+An alphanumeric incrementable counter with endless scale and suitable for URLs. ~40 lines of code, no dependencies.
 Can also convert from/to the numerical equivalent.
 
 ## Why?
@@ -8,7 +8,9 @@ alphacounter was created to provide sortable and URL-friendly strings for use in
 zero-padded numbers you only have 10 usable characters. With alphacounter, you get 62, leading to much smaller keys.
 See below how many keys you can get with a given padded length.
 
-This is valuable for auto-incrementing database string ids that could be used in URLs.
+This is valuable for auto-incrementing database string ids that could be used in URLs. It may be useful for extremely
+large numbers. It can reduce hexidecimal hash size (e.g. make a 32-length md5 hash 22 chars). Also supports zero-padding
+for sorting in a DB index. It works great with key-value stores that are key-sorted.
 
 ## Why another?
 
@@ -27,11 +29,11 @@ let counter = inc(); // 0
 counter = inc(counter); // 1
 
 for (let i = 0; i < 1000; i++) {
-  counter = inc(counter); // 2, 3, ..., 8, 9, A, B, ..., y, z, 00, 01, 02, ..., F8, F9
+  counter = inc(counter); // 2, 3, ..., 8, 9, A, B, ..., y, z, 00, 01, 02, ..., K8, K9
 }
 ```
 
-### Comparing 2 counters without padding
+### Comparing 2 Counters
 
 A helper allows comparing two counters, taking into account their string length so that 10 remains greater than 9,
 even though it would sort differently as strings. It also handles an undefined/null value as a new counter, less
@@ -44,8 +46,8 @@ let counter = inc('F8'); // becomes F9
 
 // Compare two counters
 console.log(inc.is(counter).gt('A')); // true
-console.log(inc.is(counter).gt('00A')); // false
-
+console.log(inc.is(counter).gt('00A')); // true
+console.log(inc.is(counter).eq('000F9')); // true
 console.log(inc.is(undefined).lt('0')); // true
 ```
 
@@ -53,8 +55,8 @@ console.log(inc.is(undefined).lt('0')); // true
 
 A second parameter, `pad`, will zero-pad the counter for use in database indexes. Since databases can't use our gt/lt
 helper, you may need to zero-pad the string to the max you think you will need. To determine the upper limit, use
-61^n - 1 where n is the pad length. These are some ranges for quick reference:
-| Padding | Max Count           |       |
+61^n - 1 where n is the string length. These are some ranges:
+| Str Len | Max Count/Number    |       |
 | ------: | :------------------ | :---- |
 |       2 | 3,720               |   ~4k |
 |       3 | 226,980             | ~225k |
@@ -87,18 +89,18 @@ If you have to convert between a numerical counter and alphacounter you can use 
 import { inc } from 'alphacounter';
 
 inc.from(1) // 1
-inc.from(1000) // F8
+inc.from(1000) // G8
 
 inc.to('1') // 1
-inc.to('F8') // 1000
+inc.to('G8') // 1000
 
-// With padding (note: counters with padding are not equal to those without)
+// With padding
 
 inc.from(1, 4) // 0001
 inc.from(1000, 4) // 00G8
 
-inc.to('1') // 1
-inc.to('F8') // 938
+inc.to('0001') // 1
+inc.to('00G8') // 1000
 ```
 
 ### Invert
