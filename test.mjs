@@ -140,4 +140,30 @@ describe('alphacounter inc.from', () => {
       expect(inc.invert('0z0', 3)).to.equal('z0z')
     })
   })
+
+  describe('alphacounter inc.dec', () => {
+    it('starts at 0', () => {
+      expect(inc.dec()).to.equal('')
+      expect(inc.dec(undefined)).to.equal('')
+      expect(inc.dec(null)).to.equal('')
+      expect(inc.dec('')).to.equal('')
+    })
+
+    it('decrements to 0', () => {
+      expect(inc.dec('1')).to.equal('0')
+    })
+
+    it('decrements to 9', () => {
+      expect(inc.dec('A')).to.equal('9')
+      expect(inc.dec('a')).to.equal('Z')
+    })
+
+    it('decrements correctly', () => {
+      expect(inc.dec('10')).to.equal('z')
+      expect(inc.dec('01')).to.equal('00')
+      expect(inc.dec('10000', 5)).to.equal('0zzzz')
+      expect(inc.dec('100000')).to.equal('zzzzz')
+      expect(inc.dec('100010')).to.equal('10000z')
+    })
+  })
 })

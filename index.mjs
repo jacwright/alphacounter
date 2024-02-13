@@ -87,3 +87,13 @@ inc.to = (str) => str.split('').reduce((acc, char, i) => acc * 62 + charsIndex[c
  * @return {string} The inverted base 62 encoded string.
  */
 inc.invert = (str, pad) => str.padStart(pad || 1, '0').replace(/./g, char => reverseChars[charsIndex[char]]);
+
+/**
+ * Decrements a base 62 encoded string, with optional fixed-length padding.
+ * This is the reverse operation of `inc`.
+ *
+ * @param {string} str - Base 62 encoded string.
+ * @param {number} [pad] - Length for padding.
+ * @return {string} Decremented string.
+ */
+inc.dec = (str, pad) => inc.from(inc.toBig(str) - BigInt(1), pad || (str && str[0] === '0' && str[1] ? str.length : 0));

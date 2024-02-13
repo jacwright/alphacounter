@@ -66,4 +66,14 @@ export declare namespace inc {
      * @return {string} The inverted base 62 encoded string.
      */
     var invert: (counter: Counter, pad?: number) => string;
+
+    /**
+     * Decrements a base 62 encoded string, with optional fixed-length padding.
+     * This is the reverse operation of `inc`.
+     *
+     * @param {string} str - Base 62 encoded string.
+     * @param {number} [pad] - Length for padding.
+     * @return {string} Decremented string.
+     */
+    var dec: (counter: Counter, pad?: number) => string;
 }

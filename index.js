@@ -77,8 +77,8 @@ inc.from = (n, pad) => {
  * @param {boolean} [pad] - Whether to ignore leading zeros.
  * @return {number} The decoded number.
  */
-inc.to = str => str.split('').reduce((acc, char) => acc * 62 + charsIndex[char], 0);
-inc.toBig = str => str.split('').reduce((acc, char) => acc * BigInt(62) + BigInt(charsIndex[char]), BigInt(0));
+inc.to = str => (str || '0').split('').reduce((acc, char) => acc * 62 + charsIndex[char], 0);
+inc.toBig = str => (str || '0').split('').reduce((acc, char) => acc * BigInt(62) + BigInt(charsIndex[char]), BigInt(0));
 
 /**
  * Inverts a base 62 encoded string and optionally pads the result to a fixed length.
@@ -89,4 +89,14 @@ inc.toBig = str => str.split('').reduce((acc, char) => acc * BigInt(62) + BigInt
  * @param {number} [pad] - Optional length to pad the string to.
  * @return {string} The inverted base 62 encoded string.
  */
-inc.invert = (str, pad) => str.padStart(pad || 1, '0').replace(/./g, char => reverseChars[charsIndex[char]]);
+inc.invert = (str, pad) => (str || '').padStart(pad || 1, '0').replace(/./g, char => reverseChars[charsIndex[char]]);
+
+/**
+ * Decrements a base 62 encoded string, with optional fixed-length padding.
+ * This is the reverse operation of `inc`.
+ *
+ * @param {string} str - Base 62 encoded string.
+ * @param {number} [pad] - Length for padding.
+ * @return {string} Decremented string.
+ */
+inc.dec = (str, pad) => inc.from(inc.toBig(str) - BigInt(1), pad || (str && str[0] === '0' && str[1] ? str.length : 0));

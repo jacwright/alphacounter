@@ -116,3 +116,14 @@ inc.invert(id); // zzzz
 
 saveDocument(`reverseIndex/${inc.invert('00F9')}`, { id: '00F9', ... }); // zzkq
 ```
+
+### Decrement
+
+You may want reverse a counter.
+
+```js
+import { inc } from 'alphacounter';
+
+const id = inc('5', 4) // 0006
+inc.dec(id); // 0005
+```
