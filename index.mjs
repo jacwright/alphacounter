@@ -76,6 +76,7 @@ inc.from = (n, pad) => {
  * @return {number} The decoded number.
  */
 inc.to = (str) => str.split('').reduce((acc, char, i) => acc * 62 + charsIndex[char], 0);
+inc.toBig = str => (str || '0').split('').reduce((acc, char) => acc * BigInt(62) + BigInt(charsIndex[char]), BigInt(0));
 
 /**
  * Inverts a base 62 encoded string and optionally pads the result to a fixed length.
