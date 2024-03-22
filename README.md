@@ -55,14 +55,18 @@ console.log(inc.is(undefined).lt('0')); // true
 
 A second parameter, `pad`, will zero-pad the counter for use in database indexes. Since databases can't use our gt/lt
 helper, you may need to zero-pad the string to the max you think you will need. To determine the upper limit, use
-61^n - 1 where n is the string length. These are some ranges:
+62^n where n is the string length. These are some ranges:
 | Str Len | Max Count/Number    |       |
 | ------: | :------------------ | :---- |
-|       2 | 3,720               |   ~4k |
-|       3 | 226,980             | ~225k |
-|       4 | 13,845,840          |  ~14M |
-|       6 | 51,520,374,360      |  ~51B |
-|       8 | 191,707,312,997,280 | ~200T |
+|       2 | 3,844               |   ~4K |
+|       3 | 238,328             | ~238K |
+|       4 | 14,776,336          |  ~15M |
+|       5 | 916,132,832         |   ~1B |
+|       6 | 56,800,235,584      |  ~57B |
+|       8 | 218,340,105,584,896 | ~218T |
+|      10 | 8.39299365868340e17 | ~839P |
+
+(P is short for Petabyte or Quadrillion)
 
 ```js
 import { inc } from 'alphacounter';
